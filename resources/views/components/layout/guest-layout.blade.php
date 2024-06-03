@@ -16,6 +16,17 @@
 <body class="bg-gray-100">
 
     <main class="wrapper bg-white">
+
+        <header class="flex flex-row justify-between items-center px-8 py-4">
+            <h4 class="font-bold text-green-500 text-3xl">PasswordR</h4>
+            <a href="{{ route('About.Page')}}" class="">About</a>
+
+
+            @isset($login)
+                {{$login}}
+            @endisset
+        </header>
+
         {{$slot}}
     </main>
     

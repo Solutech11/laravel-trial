@@ -16,10 +16,16 @@ use App\Http\Controllers\app\auth\authController;
 |
 */
 
+Route::get("/about",function(){
+    return view("app.pages.about");
+})->name("About.Page");
+
 Route::controller(authController::class)->group(function () {
     Route::get("/","loginPage")->name("Login.Page");
 
     Route::get("/register","registerPage")->name("Register.Page");
+
+    
 
 });
 

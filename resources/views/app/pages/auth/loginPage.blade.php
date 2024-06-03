@@ -1,9 +1,6 @@
 <x-layout.guest-layout>
 
-    <header class="flex flex-row justify-between items-center p-2">
-        <h4 class="font-bold text-green-500 text-3xl">PasswordR</h4>
-        <a href="/about" class="">About</a>
-    </header>
+    
 
     <main class="flex flex-col justify-center items-center gap-3 py-4 ">
         <div>
