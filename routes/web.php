@@ -17,7 +17,7 @@ use App\Http\Controllers\app\auth\authController;
 */
 
 Route::controller(authController::class)->group(function () {
-    Route::get("/login","loginPage")->name("Login.Page");
+    Route::get("/","loginPage")->name("Login.Page");
 
     Route::get("/register","registerPage")->name("Register.Page");
 

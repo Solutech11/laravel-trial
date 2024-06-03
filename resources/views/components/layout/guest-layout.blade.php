@@ -5,9 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Auth</title>
+    <style>
+        .wrapper{
+            width: 800px;
+            margin: auto
+        }
+    </style>
     @vite('resources/css/app.css')
 </head>
-<body>
-    {{$slot}}
+<body class="bg-gray-100">
+
+    <main class="wrapper bg-white">
+        {{$slot}}
+    </main>
+    
 </body>
 </html>
