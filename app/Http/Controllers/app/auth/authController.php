@@ -11,6 +11,9 @@ class authController extends Controller
         return view("app.pages.auth.loginPage");
     }
 
+    public function loginFunc(Request $request){
+        return $request->input();
+    }
     public function registerPAge(){
         return view("app.pages.auth.registerPage");
     }

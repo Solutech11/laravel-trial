@@ -23,9 +23,10 @@ Route::get("/about",function(){
 Route::controller(authController::class)->group(function () {
     Route::get("/","loginPage")->name("Login.Page");
 
-    Route::get("/register","registerPage")->name("Register.Page");
+    Route::get("/register","registerPage")->name("register.Page");
 
-    
+    //post
+    Route::post("/login", "loginFunc")->name("login.Function");
 
 });
 
