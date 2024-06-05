@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-use function Laravel\Prompts\error;
 
 class authController extends Controller
 {
@@ -22,13 +21,27 @@ class authController extends Controller
                 'password'=>['required', 'string', 'max:15', 'min:8'],
             ]);
 
-            return "goes well";
+            return '<h1>Success registered</h1>';
         }catch(ValidationException $e){
-            return $e->errors();
+            return view("app.pages.auth.loginPage",['errors'=>$e->errors()]);
         }
     }
 
-    public function registerPAge(){
+    public function registerPage(){
         return view("app.pages.auth.registerPage");
+    }
+
+    public function registerFunc(Request $request){
+        try{
+            $request->validate([
+                'name'=> ['required', 'string','max:30','min:5'],
+                'email'=>['required', 'email'],
+                'password'=>['required', 'string', 'max:15', 'min:8'],
+            ]);
+
+            return '<h1>Success registered</h1>';
+        }catch(ValidationException $e){
+            return view("app.pages.auth.registerPage",["errors"=>$e->errors()]);
+        }
     }
 }

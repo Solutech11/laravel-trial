@@ -4,6 +4,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\app\auth\authController;
+use App\Http\Controllers\app\pages;
+use App\Http\Controllers\app\pagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +18,7 @@ use App\Http\Controllers\app\auth\authController;
 |
 */
 
-Route::get("/about",function(){
-    return view("app.pages.about");
-})->name("About.Page");
+Route::get("/about",[pagesController::class, 'aboutPage'])->name("About.Page");
 
 Route::controller(authController::class)->group(function () {
     Route::get("/","loginPage")->name("Login.Page");
@@ -27,6 +27,8 @@ Route::controller(authController::class)->group(function () {
 
     //post
     Route::post("/login", "loginFunc")->name("login.Function");
+
+    Route::post('/register','registerFunc')->name('register.Function');
 
 });
 
