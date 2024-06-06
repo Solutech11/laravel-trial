@@ -4,8 +4,6 @@ namespace App\Http\Controllers\app\auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
-use PhpParser\Node\Stmt\TryCatch;
 
 class authController extends Controller
 {
@@ -14,19 +12,24 @@ class authController extends Controller
     }
 
     public function loginFunc(Request $request){
-        try{
-            $request->validate([
-                'email'=> ['required','email'],
-                'password'=> ['required','string','min:8', 'max:15'],
-
-            ]);
-
-            return $request->input();
-        }catch(ValidationException $e){
-            return $e->validator->errors();
-        }
+        return $request->input();
     }
     public function registerPAge(){
         return view("app.pages.auth.registerPage");
+    }
+
+    public function registerFunc(Request $request){
+        try{
+            $request->validate([
+                'name'=> ['required', 'string','max:30','min:5'],
+                'email'=>['required', 'email'],
+                'password'=>['required', 'string', 'max:15', 'min:8'],
+            ]);
+
+            return '<h1>Success registered</h1>';
+        }catch(ValidationException $e){
+            return back()->withErrors($e->validator->errors());
+            // return view("app.pages.auth.registerPage",["errors"=>$e->errors()]);
+        }
     }
 }
