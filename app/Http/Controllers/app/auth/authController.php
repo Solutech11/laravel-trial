@@ -4,6 +4,7 @@ namespace App\Http\Controllers\app\auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class authController extends Controller
 {
