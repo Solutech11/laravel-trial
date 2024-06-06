@@ -22,7 +22,7 @@
                 <label for="name">Name</label>
                 <input type="text" class="rounded-md p-1 border focus:outline-green-500 " name="name" id="name">
                 @error('name')
-                <div class="text-red-500"><p>{{$message}}</p></div>   
+                    <div><p class="text-red-500"><p>{{$message}}</p></div>   
                 @enderror
             </div>
 
@@ -30,15 +30,16 @@
                 <label for="email">Email</label>
                 <input type="email" class="rounded-md p-1 border focus:outline-green-500 " name="email" id="email">
                 @error('email')
-                <div class="text-red-500"><p>{{$message}}</p></div>   
+                    <div><p class="text-red-500"><p>{{$message}}</p></div>   
                 @enderror
             </div>
 
             <div class="flex flex-col justify-start w-1/2">
                 <label for="password">Password</label>
                 <input type="password"  name="password" class="rounded-md p-1 border focus:outline-green-500" id="password">
+               
                 @error('password')
-                <div class="text-red-500"><p>{{$message}}</p></div>   
+                    <div><p class="text-red-500"><p>{{$message}}</p></div>   
                 @enderror
             </div>
 
