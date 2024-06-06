@@ -12,14 +12,17 @@
                     <label for="email">Email</label>
                     <input type="email" class="rounded-md p-1 border focus:outline-green-500 " name="email" id="email">
                     @error('email')
-                        <div><p>{{$message}}</p></div>   
+                        <div><p class="text-red-500">{{$message}}</p></div>   
                     @enderror
                 </div>
 
                 <div class="flex flex-col justify-start w-1/2">
                     <label for="password">Password</label>
                     <input type="password"  name="password" class="rounded-md p-1 border focus:outline-green-500" id="password">
-                    {{$error.get('email')}}
+
+                    @error('password')
+                        <div><p class="text-red-500">{{$message}}</p></div>   
+                    @enderror
                 </div>
 
                 <div class="flex flex-col gap-2 w-1/2">
