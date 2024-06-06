@@ -7,20 +7,13 @@
             <div>
                 <h4>Login</h4>
             </div>
-            @if (!empty($errors))
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors as $fieldErrors)
-                        @foreach ($fieldErrors as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+            
                 <div class="flex flex-col justify-start w-1/2">
                     <label for="email">Email</label>
                     <input type="email" class="rounded-md p-1 border focus:outline-green-500 " name="email" id="email">
+                    @error('email')
+                        <div><p>{{$message}}</p></div>   
+                    @enderror
                 </div>
 
                 <div class="flex flex-col justify-start w-1/2">

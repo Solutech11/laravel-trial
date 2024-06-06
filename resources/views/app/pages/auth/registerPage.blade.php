@@ -6,21 +6,24 @@
             <div>
                 <h4>Register</h4>
             </div>
-            @if (!empty($errors))
+            {{-- @if (!empty($errors))
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors as $fieldErrors)
                         @foreach ($fieldErrors as $error)
-                            <li>{{ $error }}</li>
+                            <li class="text-red">{{ $error }}</li>
                         @endforeach
                     @endforeach
                 </ul>
             </div>
-        @endif
+        @endif --}}
 
             <div class="flex flex-col justify-start w-1/2">
                 <label for="name">Name</label>
                 <input type="text" class="rounded-md p-1 border focus:outline-green-500 " name="name" id="name">
+                @error('name')
+                <div><p class="texr-">{{$message}}</p></div>   
+                @enderror
             </div>
 
             <div class="flex flex-col justify-start w-1/2">

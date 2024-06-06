@@ -23,7 +23,10 @@ class authController extends Controller
 
             return '<h1>Success registered</h1>';
         }catch(ValidationException $e){
-            return view("app.pages.auth.loginPage",['errors'=>$e->errors()]);
+
+            //Error page
+            return back()->withErrors($e->validator->errors());
+            //return view("app.pages.auth.loginPage",['errors'=>$e->errors()]);
         }
     }
 
@@ -41,7 +44,8 @@ class authController extends Controller
 
             return '<h1>Success registered</h1>';
         }catch(ValidationException $e){
-            return view("app.pages.auth.registerPage",["errors"=>$e->errors()]);
+            return back()->withErrors($e->validator->errors());
+            // return view("app.pages.auth.registerPage",["errors"=>$e->errors()]);
         }
     }
 }
