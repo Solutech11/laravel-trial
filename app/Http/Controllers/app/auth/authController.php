@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\app\auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -13,7 +14,17 @@ class authController extends Controller
     }
 
     public function loginFunc(Request $request){
-        return $request->input();
+        try{
+            $request->validate([
+                'email'=>['required', 'email'],
+                'password'=>['required', 'string', 'max:15', 'min:8'],
+            ]);
+
+            return '<h1>Success Loggedin</h1>';
+        }catch(ValidationException $e){
+            return back()->withErrors($e->validator->errors());
+            // return view("app.pages.auth.registerPage",["errors"=>$e->errors()]);
+        }
     }
     public function registerPAge(){
         return view("app.pages.auth.registerPage");
@@ -27,7 +38,18 @@ class authController extends Controller
                 'password'=>['required', 'string', 'max:15', 'min:8'],
             ]);
 
-            return '<h1>Success registered</h1>';
+            //storing data in the model
+            $newuser= new UserModel();
+            $newuser->name=$request->name;
+            $newuser->email=$request->email;
+            $newuser->password=$request->password;
+            $saved= $newuser->save();
+            
+            if($saved){
+                return redirect('/')->with('success','Registration Successfully');
+            }
+            
+            return Back()->with('error','Unable to Register User');
         }catch(ValidationException $e){
             return back()->withErrors($e->validator->errors());
             // return view("app.pages.auth.registerPage",["errors"=>$e->errors()]);

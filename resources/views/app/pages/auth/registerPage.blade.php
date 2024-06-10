@@ -18,6 +18,11 @@
             </div>
         @endif --}}
 
+
+            {{-- message parsing from server --}}
+            @if (Session('error'))
+                <p class="text-white bg-red-200 p-2 rounded-md fle">{{Session('error')}}</p>
+            @endif
             <div class="flex flex-col justify-start w-1/2">
                 <label for="name">Name</label>
                 <input type="text" class="rounded-md p-1 border focus:outline-green-500 " name="name" id="name">
