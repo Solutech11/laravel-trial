@@ -1,7 +1,11 @@
 <?php
 
-use App\Http\Controllers\Sample\sampleController;
+
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\app\auth\authController;
+use App\Http\Controllers\app\pages;
+use App\Http\Controllers\app\pagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +18,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [sampleController::class, 'index'])->name('index.page');
+Route::get("/about",[pagesController::class, 'aboutPage'])->name("About.Page");
 
-//grouped controllers
-Route::controller(sampleController::class)->group(function(){
-    Route::get('/about', 'about')->name('about.page');
-    Route::get('/info', 'info')->name('info.page');
+Route::controller(authController::class)->group(function () {
+    Route::get("/","loginPage")->name("Login.Page");
+
+    Route::get("/register","registerPage")->name("register.Page");
+
+    //post
+    Route::post("/login", "loginFunc")->name("login.Function");
+
+    Route::post('/register','registerFunc')->name('register.Function');
 
     //passing dynamic data
     Route::get('/hello/{name}', 'hello')->name('hello.page');
@@ -29,27 +38,4 @@ Route::controller(sampleController::class)->group(function(){
 });
 
 
-
-
-//pefix allows grouping of routes like /api/about, /api/info.... these are enables all the routes under it to have api in front
-Route::prefix("user")->group(function(){//group is meant for grouping
-
-    Route::get('/about', function () {
-        $names=["hika","lio"];
-        return view('about',compact("names"));
-    });
-
-    Route::get('/info', function () {
-        return view('info');
-    });
-
-    //{name} ---- is a dynamic route, to pars data from routes
-    Route::get('/welcome/{name}', function ($name) {
-        return view('welcome2',compact("name"));
-    });
-});
-
-
-
-//any custom route files must be at the buttom
 require __DIR__."/appRoutes.php";

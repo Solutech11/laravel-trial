@@ -38,3 +38,4 @@ class sampleController extends Controller
         return $request->input();
     }
 }
+
