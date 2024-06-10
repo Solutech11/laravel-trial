@@ -28,4 +28,13 @@ class sampleController extends Controller
     public function info (){
         return view('info');
     }
+
+    //route dynamic
+    public function hello ($name){
+        return $name;
+    }
+
+    public function QueryTry (Request $request){
+        return $request->input();
+    }
 }

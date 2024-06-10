@@ -21,6 +21,11 @@ Route::controller(sampleController::class)->group(function(){
     Route::get('/about', 'about')->name('about.page');
     Route::get('/info', 'info')->name('info.page');
 
+    //passing dynamic data
+    Route::get('/hello/{name}', 'hello')->name('hello.page');
+
+    Route::get('/api/query','QueryTry')->name('QueryTry.api');
+
 });
 
 
