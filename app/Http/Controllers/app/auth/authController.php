@@ -38,6 +38,12 @@ class authController extends Controller
                 'password'=>['required', 'string', 'max:15', 'min:8'],
             ]);
 
+            //check unique email
+            $UserCheck= UserModel::where('email',$request->email)->get();
+            if($UserCheck){
+                return Back()->with('user',`User already registered`);
+            }
+
             //storing data in the model
             $newuser= new UserModel();
             $newuser->name=$request->name;
