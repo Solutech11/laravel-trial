@@ -21,12 +21,10 @@
 
             {{-- message parsing from server --}}
             @if (Session('error'))
-                <p class="text-white bg-red-200 p-2 rounded-md flex flex-row">{{Session('error')}}</p>
+                <p class="text-white bg-red-500 p-2 rounded-md flex flex-row">{{Session('error')}}</p>
             @endif
 
-            @if (Session('user'))
-                <p class="text-white bg-red-200 p-2 rounded-md flex flex-row">{{Session('user')}}</p>
-            @endif
+            
 
             {{-- check errors --}}
             
