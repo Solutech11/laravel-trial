@@ -30,6 +30,11 @@ Route::controller(authController::class)->group(function () {
 
     Route::post('/register','registerFunc')->name('register.Function');
 
+    //passing dynamic data
+    Route::get('/hello/{name}', 'hello')->name('hello.page');
+
+    Route::get('/api/query','QueryTry')->name('QueryTry.api');
+
 });
 
 

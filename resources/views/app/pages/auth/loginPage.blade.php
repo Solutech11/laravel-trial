@@ -7,6 +7,13 @@
             <div>
                 <h4>Login</h4>
             </div>
+
+
+
+            {{-- message parsing from server --}}
+            @if (Session('success'))
+                <p class="text-green-500 p-2 rounded-md fle">{{Session('success')}}</p>
+            @endif
             
                 <div class="flex flex-col justify-start w-1/2">
                     <label for="email">Email</label>
