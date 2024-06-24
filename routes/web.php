@@ -4,8 +4,10 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\app\auth\authController;
+use App\Http\Controllers\app\dashboard\dashboardController;
 use App\Http\Controllers\app\pages;
 use App\Http\Controllers\app\pagesController;
+use App\Http\Middleware\authM;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,12 @@ Route::controller(authController::class)->group(function () {
     Route::get('/hello/{name}', 'hello')->name('hello.page');
 
     Route::get('/api/query','QueryTry')->name('QueryTry.api');
+
+});
+
+//protected
+Route::middleware(authM::class)->group(function(){
+    Route::get("/dashboard",[dashboardController::class, 'dashboardPage'])->name("Dashboard.Page");
 
 });
 

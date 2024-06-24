@@ -30,7 +30,7 @@ class authController extends Controller
                 return back()->with('error',"Invalid Login credential");
             }
 
-            $request.session('user_id',$user->id);
+            $request->session()->put('user_id',$user->id);
 
             return redirect('/dashboard');
         }catch(ValidationException $e){
