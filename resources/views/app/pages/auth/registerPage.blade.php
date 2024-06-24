@@ -19,13 +19,12 @@
         @endif --}}
 
 
-            {{-- message parsing from server --}}
+            {{-- message parsing error from server --}}
             @if (Session('error'))
-                <p class="text-white bg-red-500 p-2 rounded-md flex flex-row">{{Session('error')}}</p>
+                <p class="text-white bg-red-500 p-1 rounded-md flex flex-row">{{Session('error')}}</p>
             @endif
 
-            
-
+        
             {{-- check errors --}}
             
             <div class="flex flex-col justify-start w-1/2">

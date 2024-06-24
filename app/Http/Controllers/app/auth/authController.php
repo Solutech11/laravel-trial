@@ -20,7 +20,19 @@ class authController extends Controller
                 'password'=>['required', 'string', 'max:15', 'min:8'],
             ]);
 
-            return '<h1>Success Loggedin</h1>';
+
+            $user= UserModel::where('email',$request->email)->first();
+
+            if (!$user){return back()->with('error',"User doesnt exist");}
+
+            //pasword
+            if ($user->password!=$request->password){
+                return back()->with('error',"Invalid Login credential");
+            }
+
+            $request.session('user_id',$user->id);
+
+            return redirect('/dashboard');
         }catch(ValidationException $e){
             return back()->withErrors($e->validator->errors());
             // return view("app.pages.auth.registerPage",["errors"=>$e->errors()]);
@@ -38,9 +50,9 @@ class authController extends Controller
                 'password'=>['required', 'string', 'max:15', 'min:8'],
             ]);
 
-            //check unique email
-            $UserCheck= UserModel::where('email',$request->email)->get();
-            if($UserCheck){
+            //check if email exist email
+            $UserExist= UserModel::where('email',$request->email)->first();
+            if($UserExist){
                 return Back()->with('error','User already registered');
             }
 
@@ -51,6 +63,7 @@ class authController extends Controller
             $newuser->password=$request->password;
             $saved= $newuser->save();
             
+            //if its saved
             if($saved){
                 return redirect('/')->with('success','Registration Successfully');
             }
