@@ -39,7 +39,7 @@ class authController extends Controller
             ]);
 
             //check unique email
-            $UserCheck= UserModel::where('email',$request->email)->get();
+            $UserCheck= UserModel::where('email',$request->email)->first();
             if($UserCheck){
                 return Back()->with('error','User already registered');
             }
