@@ -15,21 +15,18 @@ class authController extends Controller
 
     public function loginFunc(Request $request){
         try{
-            $request->validate([
-                'email'=>['required', 'email'],
-                'password'=>['required', 'string', 'max:15', 'min:8'],
-            ]);
-
-
+            //check user existr
             $user= UserModel::where('email',$request->email)->first();
 
+            //user doest exist throw error
             if (!$user){return back()->with('error',"User doesnt exist");}
 
-            //pasword
+            //pasword doesnt match
             if ($user->password!=$request->password){
                 return back()->with('error',"Invalid Login credential");
             }
 
+            //save user id in session
             $request->session()->put('user_id',$user->id);
 
             return redirect('/dashboard');
@@ -44,11 +41,7 @@ class authController extends Controller
 
     public function registerFunc(Request $request){
         try{
-            $request->validate([
-                'name'=> ['required', 'string','max:30','min:5'],
-                'email'=>['required', 'email'],
-                'password'=>['required', 'string', 'max:15', 'min:8'],
-            ]);
+          
 
             //check if email exist email
             $UserExist= UserModel::where('email',$request->email)->first();

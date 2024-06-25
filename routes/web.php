@@ -8,6 +8,7 @@ use App\Http\Controllers\app\dashboard\dashboardController;
 use App\Http\Controllers\app\pages;
 use App\Http\Controllers\app\pagesController;
 use App\Http\Middleware\authM;
+use App\Http\Middleware\validationAuth;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,15 +24,20 @@ use App\Http\Middleware\authM;
 Route::get("/about",[pagesController::class, 'aboutPage'])->name("About.Page");
 
 Route::controller(authController::class)->group(function () {
+
+
     Route::get("/","loginPage")->name("Login.Page");
 
     Route::get("/register","registerPage")->name("register.Page");
 
     //post
-    Route::post("/login", "loginFunc")->name("login.Function");
+    Route::middleware(validationAuth::class)->group(function(){
+        Route::post("/login", "loginFunc")->name("login.Function");
 
-    Route::post('/register','registerFunc')->name('register.Function');
+        Route::post('/register','registerFunc')->name('register.Function');
 
+    });
+    
     //passing dynamic data
     Route::get('/hello/{name}', 'hello')->name('hello.page');
 
