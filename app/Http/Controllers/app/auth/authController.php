@@ -15,12 +15,21 @@ class authController extends Controller
 
     public function loginFunc(Request $request){
         try{
-            $request->validate([
-                'email'=>['required', 'email'],
-                'password'=>['required', 'string', 'max:15', 'min:8'],
-            ]);
+            //check user existr
+            $user= UserModel::where('email',$request->email)->first();
 
-            return '<h1>Success Loggedin</h1>';
+            //user doest exist throw error
+            if (!$user){return back()->with('error',"User doesnt exist");}
+
+            //pasword doesnt match
+            if ($user->password!=$request->password){
+                return back()->with('error',"Invalid Login credential");
+            }
+
+            //save user id in session
+            $request->session()->put('user_id',$user->id);
+
+            return redirect('/dashboard');
         }catch(ValidationException $e){
             return back()->withErrors($e->validator->errors());
             // return view("app.pages.auth.registerPage",["errors"=>$e->errors()]);
@@ -32,15 +41,11 @@ class authController extends Controller
 
     public function registerFunc(Request $request){
         try{
-            $request->validate([
-                'name'=> ['required', 'string','max:30','min:5'],
-                'email'=>['required', 'email'],
-                'password'=>['required', 'string', 'max:15', 'min:8'],
-            ]);
+          
 
-            //check unique email
-            $UserCheck= UserModel::where('email',$request->email)->first();
-            if($UserCheck){
+            //check if email exist email
+            $UserExist= UserModel::where('email',$request->email)->first();
+            if($UserExist){
                 return Back()->with('error','User already registered');
             }
 
@@ -51,6 +56,7 @@ class authController extends Controller
             $newuser->password=$request->password;
             $saved= $newuser->save();
             
+            //if its saved
             if($saved){
                 return redirect('/')->with('success','Registration Successfully');
             }

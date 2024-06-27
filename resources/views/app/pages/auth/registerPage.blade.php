@@ -19,20 +19,19 @@
         @endif --}}
 
 
-            {{-- message parsing from server --}}
+            {{-- message parsing error from server --}}
             @if (Session('error'))
-                <p class="text-white bg-red-500 p-2 rounded-md flex flex-row">{{Session('error')}}</p>
+                <p class="text-white bg-red-500 p-1 rounded-md flex flex-row">{{Session('error')}}</p>
             @endif
 
-            
-
+        
             {{-- check errors --}}
             
             <div class="flex flex-col justify-start w-1/2">
                 <label for="name">Name</label>
                 <input type="text" class="rounded-md p-1 border focus:outline-green-500 " name="name" id="name">
                 @error('name')
-                    <div><p class="text-red-500"><p>{{$message}}</p></div>   
+                    <div><p class="text-red-500">{{$message}}</p></div>   
                 @enderror
             </div>
 
@@ -40,7 +39,7 @@
                 <label for="email">Email</label>
                 <input type="email" class="rounded-md p-1 border focus:outline-green-500 " name="email" id="email">
                 @error('email')
-                    <div><p class="text-red-500"><p>{{$message}}</p></div>   
+                    <div><p class="text-red-500">{{$message}}</p></div>    
                 @enderror
             </div>
 
@@ -49,7 +48,7 @@
                 <input type="password"  name="password" class="rounded-md p-1 border focus:outline-green-500" id="password">
                
                 @error('password')
-                    <div><p class="text-red-500"><p>{{$message}}</p></div>   
+                    <div><p class="text-red-500">{{$message}}</p></div>   
                 @enderror
             </div>
 
