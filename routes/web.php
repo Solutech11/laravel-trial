@@ -25,10 +25,14 @@ Route::get("/about",[pagesController::class, 'aboutPage'])->name("About.Page");
 
 Route::controller(authController::class)->group(function () {
 
-
     Route::get("/","loginPage")->name("Login.Page");
 
     Route::get("/register","registerPage")->name("register.Page");
+
+    
+    Route::middleware(authM::class)->group(function(){
+        Route::get("/logout", "logoutFunc")->name("logout.Function");
+    });
 
     //post
     Route::middleware(validationAuth::class)->group(function(){

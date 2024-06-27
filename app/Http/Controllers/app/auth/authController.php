@@ -5,6 +5,8 @@ namespace App\Http\Controllers\app\auth;
 use App\Http\Controllers\Controller;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 
 class authController extends Controller
@@ -15,6 +17,11 @@ class authController extends Controller
 
     public function loginFunc(Request $request){
         try{
+
+            if (Session::get('user_id')){
+                return redirect('/dashboard');
+            }
+
             //check user existr
             $user= UserModel::where('email',$request->email)->first();
 
@@ -22,7 +29,7 @@ class authController extends Controller
             if (!$user){return back()->with('error',"User doesnt exist");}
 
             //pasword doesnt match
-            if ($user->password!=$request->password){
+            if (Hash::check($request->password, $user->password)==false){
                 return back()->with('error',"Invalid Login credential");
             }
 
@@ -42,6 +49,9 @@ class authController extends Controller
     public function registerFunc(Request $request){
         try{
           
+            if (Session::get('user_id')){
+                return redirect('/dashboard');
+            }
 
             //check if email exist email
             $UserExist= UserModel::where('email',$request->email)->first();
@@ -53,7 +63,7 @@ class authController extends Controller
             $newuser= new UserModel();
             $newuser->name=$request->name;
             $newuser->email=$request->email;
-            $newuser->password=$request->password;
+            $newuser->password= Hash::make($request->password);
             $saved= $newuser->save();
             
             //if its saved
@@ -66,5 +76,11 @@ class authController extends Controller
             return back()->withErrors($e->validator->errors());
             // return view("app.pages.auth.registerPage",["errors"=>$e->errors()]);
         }
+    }
+
+    public function logoutFunc(Request $request){
+        $request->session()->forget("user_id");
+
+        return redirect('/');
     }
 }

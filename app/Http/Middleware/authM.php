@@ -16,6 +16,7 @@ class authM
      */
     public function handle(Request $request, Closure $next): Response
     {
+        
         if (!Session::get('user_id')){
             return redirect('/');
         }
